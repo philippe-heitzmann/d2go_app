@@ -1,0 +1,804 @@
+TracingAdapter(
+  original_name=TracingAdapter
+  (model): D2RCNNInferenceWrapper(
+    original_name=D2RCNNInferenceWrapper
+    (model): GeneralizedRCNN(
+      original_name=GeneralizedRCNN
+      (backbone): QuantWrapSubClass(
+        original_name=QuantWrapSubClass
+        (body): FBNetV2Backbone(
+          original_name=FBNetV2Backbone
+          (trunk0): Sequential(
+            original_name=Sequential
+            (fbnetv2_0_0): ConvBNRelu(
+              original_name=ConvBNRelu
+              (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+              (bn): Identity(original_name=Identity)
+              (relu): Identity(original_name=Identity)
+            )
+            (fbnetv2_0_1): IRFBlock(
+              original_name=IRFBlock
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+          )
+          (trunk1): Sequential(
+            original_name=Sequential
+            (fbnetv2_1_0): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+            )
+            (fbnetv2_1_1): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+          )
+          (trunk2): Sequential(
+            original_name=Sequential
+            (fbnetv2_2_0): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+            )
+            (fbnetv2_2_1): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_2_2): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_2_3): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+          )
+          (trunk3): Sequential(
+            original_name=Sequential
+            (fbnetv2_3_0): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+            )
+            (fbnetv2_3_1): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_3_2): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_3_3): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_3_4): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+            )
+            (fbnetv2_3_5): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_3_6): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+            (fbnetv2_3_7): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (bn): Identity(original_name=Identity)
+                (relu): Identity(original_name=Identity)
+              )
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+                (bn): Identity(original_name=Identity)
+              )
+              (res_conn): TorchAdd(
+                original_name=TorchAdd
+                (add_func): QFunctional(
+                  original_name=QFunctional
+                  (activation_post_process): Identity(original_name=Identity)
+                )
+              )
+            )
+          )
+        )
+        (quant_stubs): QuantStubNested(
+          original_name=QuantStubNested
+          (stubs): ModuleList(
+            original_name=ModuleList
+            (0): Quantize(original_name=Quantize)
+          )
+        )
+        (dequant_stubs): QuantStubNested(
+          original_name=QuantStubNested
+          (stubs): ModuleList(
+            original_name=ModuleList
+            (0): DeQuantize(original_name=DeQuantize)
+            (1): DeQuantize(original_name=DeQuantize)
+            (2): DeQuantize(original_name=DeQuantize)
+            (3): DeQuantize(original_name=DeQuantize)
+          )
+        )
+      )
+      (proposal_generator): RPN(
+        original_name=RPN
+        (rpn_head): QuantWrapSubClass(
+          original_name=QuantWrapSubClass
+          (rpn_feature): FBNetModule(
+            original_name=FBNetModule
+            (0): Sequential(
+              original_name=Sequential
+              (fbnetv2_0_0): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+              (fbnetv2_0_1): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+              (fbnetv2_0_2): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+            )
+          )
+          (rpn_regressor): RPNHeadConvRegressor(
+            original_name=RPNHeadConvRegressor
+            (cls_logits): RecursiveScriptModule(original_name=Conv2d)
+            (bbox_pred): RecursiveScriptModule(original_name=Conv2d)
+          )
+          (quant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): Quantize(original_name=Quantize)
+            )
+          )
+          (dequant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): DeQuantize(original_name=DeQuantize)
+              (1): DeQuantize(original_name=DeQuantize)
+            )
+          )
+        )
+        (anchor_generator): DefaultAnchorGenerator(
+          original_name=DefaultAnchorGenerator
+          (cell_anchors): BufferList(original_name=BufferList)
+        )
+      )
+      (roi_heads): StandardROIHeads(
+        original_name=StandardROIHeads
+        (box_pooler): ROIPooler(
+          original_name=ROIPooler
+          (level_poolers): ModuleList(
+            original_name=ModuleList
+            (0): ROIAlign(original_name=ROIAlign)
+          )
+        )
+        (box_head): QuantWrapSubClass(
+          original_name=QuantWrapSubClass
+          (roi_box_conv): FBNetModule(
+            original_name=FBNetModule
+            (0): Sequential(
+              original_name=Sequential
+              (fbnetv2_0_0): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+              )
+              (fbnetv2_0_1): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+              (fbnetv2_0_2): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+              (fbnetv2_0_3): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+              )
+            )
+          )
+          (avgpool): AdaptiveAvgPool2d(original_name=AdaptiveAvgPool2d)
+          (quant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): Quantize(original_name=Quantize)
+            )
+          )
+          (dequant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): DeQuantize(original_name=DeQuantize)
+            )
+          )
+        )
+        (box_predictor): QuantWrapSubClass(
+          original_name=QuantWrapSubClass
+          (cls_score): Linear(
+            original_name=Linear
+            (_packed_params): RecursiveScriptModule(original_name=LinearPackedParams)
+          )
+          (bbox_pred): Linear(
+            original_name=Linear
+            (_packed_params): RecursiveScriptModule(original_name=LinearPackedParams)
+          )
+          (quant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): Quantize(original_name=Quantize)
+            )
+          )
+          (dequant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): DeQuantize(original_name=DeQuantize)
+              (1): DeQuantize(original_name=DeQuantize)
+            )
+          )
+        )
+        (keypoint_pooler): ROIPooler(
+          original_name=ROIPooler
+          (level_poolers): ModuleList(
+            original_name=ModuleList
+            (0): ROIAlign(original_name=ROIAlign)
+          )
+        )
+        (keypoint_head): QuantWrapSubClass(
+          original_name=QuantWrapSubClass
+          (feature_extractor): FBNetModule(
+            original_name=FBNetModule
+            (0): Sequential(
+              original_name=Sequential
+              (fbnetv2_0_0): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+              )
+              (fbnetv2_0_1): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+              (fbnetv2_0_2): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+                (res_conn): TorchAdd(
+                  original_name=TorchAdd
+                  (add_func): QFunctional(
+                    original_name=QFunctional
+                    (activation_post_process): Identity(original_name=Identity)
+                  )
+                )
+              )
+              (fbnetv2_0_3): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (upsample): Upsample(original_name=Upsample)
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+              )
+              (fbnetv2_0_4): IRFBlock(
+                original_name=IRFBlock
+                (pw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                  (bn): Identity(original_name=Identity)
+                  (relu): Identity(original_name=Identity)
+                )
+                (upsample): Upsample(original_name=Upsample)
+                (dw): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                )
+                (pwl): ConvBNRelu(
+                  original_name=ConvBNRelu
+                  (conv): RecursiveScriptModule(original_name=Conv2d)
+                  (bn): Identity(original_name=Identity)
+                )
+              )
+            )
+          )
+          (predictor): KeypointRCNNIRFPredictorNoUpscale(
+            original_name=KeypointRCNNIRFPredictorNoUpscale
+            (kps_score_lowres): IRFBlock(
+              original_name=IRFBlock
+              (pw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=ConvReLU2d)
+                (relu): Identity(original_name=Identity)
+              )
+              (upsample): Upsample(original_name=Upsample)
+              (dw): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+              (pwl): ConvBNRelu(
+                original_name=ConvBNRelu
+                (conv): RecursiveScriptModule(original_name=Conv2d)
+              )
+            )
+          )
+          (quant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): Quantize(original_name=Quantize)
+            )
+          )
+          (dequant_stubs): QuantStubNested(
+            original_name=QuantStubNested
+            (stubs): ModuleList(
+              original_name=ModuleList
+              (0): DeQuantize(original_name=DeQuantize)
+            )
+          )
+        )
+      )
+    )
+  )
+)

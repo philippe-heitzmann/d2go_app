@@ -1,0 +1,70 @@
+{
+    "model": {
+        "path": ".",
+        "export_method": "d2go.export.torchscript.TracingAdaptedTorchscriptExport",
+        "load_kwargs": {
+            "torchscript_filename": "model.jit",
+            "tracing_adapted": true,
+            "inputs_schema": {
+                "_target_": "detectron2.export.flatten.TupleSchema",
+                "schemas": [
+                    {
+                        "_target_": "detectron2.export.flatten.IdentitySchema"
+                    }
+                ],
+                "sizes": [
+                    1
+                ]
+            },
+            "outputs_schema": {
+                "_target_": "detectron2.export.flatten.InstancesSchema",
+                "schemas": [
+                    {
+                        "_target_": "detectron2.export.flatten.TensorWrapSchema",
+                        "class_name": "detectron2.structures.Boxes"
+                    },
+                    {
+                        "_target_": "detectron2.export.flatten.IdentitySchema"
+                    },
+                    {
+                        "_target_": "detectron2.export.flatten.IdentitySchema"
+                    },
+                    {
+                        "_target_": "detectron2.export.flatten.IdentitySchema"
+                    },
+                    {
+                        "_target_": "detectron2.export.flatten.IdentitySchema"
+                    }
+                ],
+                "sizes": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "keys": [
+                    "pred_boxes",
+                    "pred_classes",
+                    "pred_keypoint_heatmaps",
+                    "pred_keypoints",
+                    "scores"
+                ]
+            }
+        }
+    },
+    "preprocess_info": {
+        "name": "d2go.modeling.meta_arch.rcnn.D2RCNNInferenceWrapper.Preprocess",
+        "params": {}
+    },
+    "postprocess_info": {
+        "name": "d2go.modeling.meta_arch.rcnn.D2RCNNInferenceWrapper.Postprocess",
+        "params": {
+            "detector_postprocess_done_in_model": false
+        }
+    },
+    "run_func_info": {
+        "name": "mobile_cv.predictor.builtin_functions.NaiveRunFunc",
+        "params": {}
+    }
+}
