@@ -14,6 +14,7 @@ D2Go is a production ready software system from FacebookResearch, which supports
 Install PyTorch Nightly (use CUDA 10.2 as example, see details at [PyTorch Website](https://pytorch.org/get-started/)):
 
 ```bash
+conda create --name d2go python=3.8
 conda install pytorch torchvision cudatoolkit=10.2 -c pytorch-nightly
 ```
 
@@ -21,28 +22,19 @@ Install Detectron2 (other installation options at [Detectron2](https://github.co
 
 ```bash
 python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+NB: Use double quotes on Windows OS
 ```
 
 Install mobile_cv:
 
 ```bash
 python -m pip install 'git+https://github.com/facebookresearch/mobile-vision.git'
-```
-
-Install d2go:
-
-```bash
-git clone https://github.com/facebookresearch/d2go
-cd d2go & python -m pip install .
+NB: Use double quotes on Windows OS
 ```
 
 ## Get Started
 
-- [Getting Started with D2Go](./demo).
-
-- See our [model zoo](./MODEL_ZOO.md) for example configs and pretrained models.
-
-## License
-
-D2Go is released under the [Apache 2.0 license](LICENSE).
+```bash
+python demo.py --config-file keypoint_rcnn_fbnetv3a_dsmask_C4.yaml --input tennis1.jpg --output tennis_output1_2.jpg
+```
 

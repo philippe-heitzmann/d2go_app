@@ -62,6 +62,7 @@ def d2go_gather_files(dst_module, file_path, extension="*") -> List[str]:
 
 
 if __name__ == "__main__":
+    #TODO: update this so d2go not installed into conda env when calling $cd d2go & python -m pip install .
     setup(
         name="d2go",
         version=version,

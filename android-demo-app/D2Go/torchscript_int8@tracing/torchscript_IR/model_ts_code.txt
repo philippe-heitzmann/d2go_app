@@ -7,10 +7,10 @@ class TracingAdapter(Module):
   _is_full_backward_hook : Optional[bool]
   model : __torch__.d2go.modeling.meta_arch.rcnn.D2RCNNInferenceWrapper
   def forward(self: __torch__.detectron2.export.flatten.TracingAdapter,
-    argument_1: Tensor) -> Tuple[Tensor, Tensor, Tensor, Tensor, Tensor, Tensor]:
+    argument_1: Tensor) -> Tuple[Tensor, Tensor, Tensor, Tensor]:
     model = self.model
-    _0, _1, _2, _3, _4, _5, = (model).forward(argument_1, )
-    return (_0, _1, _2, _3, _4, _5)
+    _0, _1, _2, _3, = (model).forward(argument_1, )
+    return (_0, _1, _2, _3)
 
 --------------------------------------------------------------------------------
 Code for .model, type=D2RCNNInferenceWrapper:
@@ -21,7 +21,7 @@ class D2RCNNInferenceWrapper(Module):
   _is_full_backward_hook : Optional[bool]
   model : __torch__.detectron2.modeling.meta_arch.rcnn.GeneralizedRCNN
   def forward(self: __torch__.d2go.modeling.meta_arch.rcnn.D2RCNNInferenceWrapper,
-    argument_1: Tensor) -> Tuple[Tensor, Tensor, Tensor, Tensor, Tensor, Tensor]:
+    argument_1: Tensor) -> Tuple[Tensor, Tensor, Tensor, Tensor]:
     _0 = __torch__.detectron2.layers.wrappers.move_device_like
     model = self.model
     roi_heads = model.roi_heads
@@ -42,15 +42,14 @@ class D2RCNNInferenceWrapper(Module):
     _4 = torch.sub(torch.select(max_size, 0, -1), torch.select(image_size, 0, 1))
     _5 = int(_4)
     _6 = torch.sub(torch.select(max_size, 0, -2), torch.select(image_size, 0, 0))
-    _7 = torch.constant_pad_nd(t, [0, _5, 0, int(_6)], 0.)
+    _7 = torch.pad(t, [0, _5, 0, int(_6)], "constant", 0.)
     batched_imgs = torch.unsqueeze_(_7, 0)
     X = torch.contiguous(batched_imgs)
     _8 = (backbone).forward(X, )
     _9 = (proposal_generator).forward(_8, image_size, )
     _10 = (roi_heads).forward(_8, _9, image_size, )
-    _11, _12, _13, _14, _15, = _10
-    _16 = (_11, _12, _13, _14, _15, image_size)
-    return _16
+    _11, _12, _13, = _10
+    return (_11, _12, _13, image_size)
 
 --------------------------------------------------------------------------------
 Code for .model.model, type=GeneralizedRCNN:
@@ -231,7 +230,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.23402351140975952, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.11585384607315063, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -373,7 +372,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.22675390541553497, 58)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.029041629284620285, 92)
     return input
 
 --------------------------------------------------------------------------------
@@ -480,8 +479,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_2.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.18979501724243164, 89)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.1336701512336731, 66)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk0.fbnetv2_0_1.pwl.bn, type=Identity:
@@ -506,7 +505,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.36881163716316223, 46)
+    input = ops.quantized.add(argument_1, argument_2, 0.18334655463695526, 47)
     _0 = (activation_post_process).forward()
     return input
 
@@ -670,7 +669,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_6.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.13088279962539673, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.078753829002380371, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -793,7 +792,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_10.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.29605790972709656, 64)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.05707220733165741, 64)
     return input
 
 --------------------------------------------------------------------------------
@@ -900,7 +899,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_12.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.20768782496452332, 53)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.092787548899650574, 62)
     return input
 
 --------------------------------------------------------------------------------
@@ -1041,7 +1040,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_16.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.057568550109863281, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.02094450406730175, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -1164,7 +1163,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_20.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.10869396477937698, 74)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.016607090830802917, 49)
     return input
 
 --------------------------------------------------------------------------------
@@ -1271,8 +1270,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_22.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.13859443366527557, 55)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.068524576723575592, 60)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk1.fbnetv2_1_1.pwl.bn, type=Identity:
@@ -1297,7 +1296,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.27203214168548584, 58)
+    input = ops.quantized.add(argument_1, argument_2, 0.10955619066953659, 64)
     _0 = (activation_post_process).forward()
     return input
 
@@ -1466,7 +1465,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_30.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.066544480621814728, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.025419605895876884, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -1589,7 +1588,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_34.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.089724481105804443, 62)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.019645385444164276, 56)
     return input
 
 --------------------------------------------------------------------------------
@@ -1696,7 +1695,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_36.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.13966207206249237, 57)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.061339374631643295, 68)
     return input
 
 --------------------------------------------------------------------------------
@@ -1837,7 +1836,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_40.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.046318020671606064, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.020118903368711472, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -1960,7 +1959,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_44.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.038289416581392288, 48)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0067670787684619427, 55)
     return input
 
 --------------------------------------------------------------------------------
@@ -2067,8 +2066,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_46.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.093257702887058258, 65)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.057710312306880951, 69)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk2.fbnetv2_2_1.pwl.bn, type=Identity:
@@ -2093,7 +2092,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.1453431099653244, 72)
+    input = ops.quantized.add(argument_1, argument_2, 0.074877820909023285, 63)
     _0 = (activation_post_process).forward()
     return input
 
@@ -2244,7 +2243,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_53.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.02980509027838707, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.019609589129686356, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -2367,7 +2366,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_57.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.025917598977684975, 63)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0069701159372925758, 86)
     return input
 
 --------------------------------------------------------------------------------
@@ -2474,8 +2473,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_59.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.077115654945373535, 71)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.065368488430976868, 64)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk2.fbnetv2_2_2.pwl.bn, type=Identity:
@@ -2500,7 +2499,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.12786135077476501, 75)
+    input = ops.quantized.add(argument_1, argument_2, 0.10211624205112457, 54)
     _0 = (activation_post_process).forward()
     return input
 
@@ -2651,7 +2650,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_66.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.021504774689674377, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.01242495235055685, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -2774,7 +2773,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_70.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.016515623778104782, 72)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0033951580990105867, 92)
     return input
 
 --------------------------------------------------------------------------------
@@ -2881,8 +2880,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_72.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.06984778493642807, 66)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.044966179877519608, 54)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk2.fbnetv2_2_3.pwl.bn, type=Identity:
@@ -2907,7 +2906,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.15847215056419373, 67)
+    input = ops.quantized.add(argument_1, argument_2, 0.10641296952962875, 50)
     _0 = (activation_post_process).forward()
     return input
 
@@ -3086,7 +3085,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_80.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.028126051649451256, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.017263062298297882, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -3209,7 +3208,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_84.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.042158860713243484, 54)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.01257427129894495, 65)
     return input
 
 --------------------------------------------------------------------------------
@@ -3316,7 +3315,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_86.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.085477501153945923, 68)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.065296202898025513, 48)
     return input
 
 --------------------------------------------------------------------------------
@@ -3457,7 +3456,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_90.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.018082233145833015, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.015569943934679031, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -3580,7 +3579,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_94.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.014367960393428802, 76)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0045942617580294609, 63)
     return input
 
 --------------------------------------------------------------------------------
@@ -3687,8 +3686,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_96.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.081628315150737762, 73)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.055696174502372742, 59)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk3.fbnetv2_3_1.pwl.bn, type=Identity:
@@ -3713,7 +3712,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.096974745392799377, 76)
+    input = ops.quantized.add(argument_1, argument_2, 0.069978676736354828, 60)
     _0 = (activation_post_process).forward()
     return input
 
@@ -3864,7 +3863,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_103.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.012206130661070347, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.010320775210857391, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -3987,7 +3986,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_107.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.008389773778617382, 59)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.002296387916430831, 43)
     return input
 
 --------------------------------------------------------------------------------
@@ -4094,8 +4093,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_109.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.054540254175662994, 59)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.033724598586559296, 59)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk3.fbnetv2_3_2.pwl.bn, type=Identity:
@@ -4120,7 +4119,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.10126941651105881, 59)
+    input = ops.quantized.add(argument_1, argument_2, 0.065939456224441528, 61)
     _0 = (activation_post_process).forward()
     return input
 
@@ -4271,7 +4270,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_116.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.012566062621772289, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.0097023583948612213, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -4394,7 +4393,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_120.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0076472368091344833, 68)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0034326065797358751, 61)
     return input
 
 --------------------------------------------------------------------------------
@@ -4501,8 +4500,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_122.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.064626649022102356, 62)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.042978081852197647, 66)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk3.fbnetv2_3_3.pwl.bn, type=Identity:
@@ -4527,7 +4526,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.10653065890073776, 60)
+    input = ops.quantized.add(argument_1, argument_2, 0.073325932025909424, 56)
     _0 = (activation_post_process).forward()
     return input
 
@@ -4675,7 +4674,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_129.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.030309252440929413, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.015027329325675964, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -4798,7 +4797,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_133.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.031364411115646362, 65)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.010243155062198639, 54)
     return input
 
 --------------------------------------------------------------------------------
@@ -4905,7 +4904,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_135.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.036332279443740845, 71)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.019521206617355347, 87)
     return input
 
 --------------------------------------------------------------------------------
@@ -5046,7 +5045,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_139.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.017048543319106102, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.013961838558316231, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -5169,7 +5168,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_143.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.014346770942211151, 64)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0048557627014815807, 49)
     return input
 
 --------------------------------------------------------------------------------
@@ -5276,8 +5275,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_145.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.025216508656740189, 61)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.018382290378212929, 68)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk3.fbnetv2_3_5.pwl.bn, type=Identity:
@@ -5302,7 +5301,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.051511440426111221, 72)
+    input = ops.quantized.add(argument_1, argument_2, 0.024247467517852783, 87)
     _0 = (activation_post_process).forward()
     return input
 
@@ -5453,7 +5452,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_152.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.007015641313046217, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.0088738147169351578, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -5576,7 +5575,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_156.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0063367453403770924, 55)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0040600020438432693, 48)
     return input
 
 --------------------------------------------------------------------------------
@@ -5683,8 +5682,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_158.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.021103033795952797, 63)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.013197137042880058, 88)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk3.fbnetv2_3_6.pwl.bn, type=Identity:
@@ -5709,7 +5708,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.066962011158466339, 71)
+    input = ops.quantized.add(argument_1, argument_2, 0.034928727895021439, 86)
     _0 = (activation_post_process).forward()
     return input
 
@@ -5860,7 +5859,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_165.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.010070341639220715, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.0092473095282912254, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -5983,7 +5982,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_169.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0061015426181256771, 59)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0036785728298127651, 65)
     return input
 
 --------------------------------------------------------------------------------
@@ -6090,8 +6089,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_171.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.022942099720239639, 66)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.014938217587769032, 79)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.backbone.body.trunk3.fbnetv2_3_7.pwl.bn, type=Identity:
@@ -6116,7 +6115,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    Xq = ops.quantized.add(argument_1, argument_2, 0.089796319603919983, 70)
+    Xq = ops.quantized.add(argument_1, argument_2, 0.056048460304737091, 92)
     _0 = (activation_post_process).forward()
     return Xq
 
@@ -6173,7 +6172,7 @@ class Quantize(Module):
   _is_full_backward_hook : Optional[bool]
   def forward(self: __torch__.torch.nn.quantized.modules.Quantize,
     X: Tensor) -> Tensor:
-    input = torch.quantize_per_tensor(X, 0.016195546835660934, 127, 13)
+    input = torch.quantize_per_tensor(X, 0.92053180932998657, 127, 13)
     return input
 
 --------------------------------------------------------------------------------
@@ -6349,7 +6348,7 @@ class RPN(Module):
     _46 = torch.arange(1, dtype=None, layout=0, device=torch.device("cpu"), pin_memory=False)
     batch_idx = _0(_46, proposals_i0, )
     Hi_Wi_A = ops.prim.NumToTensor(torch.size(logits_i, 1))
-    num_proposals_i = torch.clamp(Hi_Wi_A, None, 6000)
+    num_proposals_i = torch.clamp(Hi_Wi_A, None, 1000)
     _47 = int(num_proposals_i)
     topk_scores, topk_idx = torch.topk(logits_i, int(num_proposals_i), 1)
     _48 = torch.slice(batch_idx, 0, 0, 9223372036854775807)
@@ -6390,11 +6389,11 @@ class RPN(Module):
     scores_per_img0 = torch.index(scores_per_img, _66)
     _67 = annotate(List[Optional[Tensor]], [item])
     _68 = torch.index(level_ids, _67)
-    _69 = torch.to(tensor2, 6)
-    keep = _2(_69, scores_per_img0, _68, 0.69999999999999996, )
+    boxes1 = torch.to(tensor2, 6)
+    keep = _2(boxes1, scores_per_img0, _68, 0.69999999999999996, )
     item0 = torch.slice(keep, 0, 0, 30)
-    _70 = annotate(List[Optional[Tensor]], [item0])
-    tensor3 = torch.index(_69, _70)
+    _69 = annotate(List[Optional[Tensor]], [item0])
+    tensor3 = torch.index(boxes1, _69)
     return torch.to(tensor3, 6)
 
 --------------------------------------------------------------------------------
@@ -6578,7 +6577,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_184.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.015536025166511536, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.01914406381547451, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -6701,7 +6700,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_188.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0034295436926186085, 65)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0027076601982116699, 54)
     return input
 
 --------------------------------------------------------------------------------
@@ -6808,8 +6807,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_190.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.04224729910492897, 68)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.021053750067949295, 80)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.proposal_generator.rpn_head.rpn_feature.0.fbnetv2_0_0.pwl.bn, type=Identity:
@@ -6834,7 +6833,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.10697615891695023, 66)
+    input = ops.quantized.add(argument_1, argument_2, 0.066744588315486908, 97)
     _0 = (activation_post_process).forward()
     return input
 
@@ -6985,7 +6984,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_197.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.017396926879882812, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.021621430292725563, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -7108,7 +7107,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_201.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0046610306017100811, 56)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0035627409815788269, 74)
     return input
 
 --------------------------------------------------------------------------------
@@ -7215,8 +7214,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_203.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.043050095438957214, 64)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.026709176599979401, 63)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.proposal_generator.rpn_head.rpn_feature.0.fbnetv2_0_1.pwl.bn, type=Identity:
@@ -7241,7 +7240,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.12192749232053757, 65)
+    input = ops.quantized.add(argument_1, argument_2, 0.087418779730796814, 94)
     _0 = (activation_post_process).forward()
     return input
 
@@ -7392,7 +7391,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_210.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.016644317656755447, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.020912541076540947, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -7515,7 +7514,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_214.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0051714531145989895, 76)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0052649891003966331, 61)
     return input
 
 --------------------------------------------------------------------------------
@@ -7622,8 +7621,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_216.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.057626005262136459, 68)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.069133251905441284, 81)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.proposal_generator.rpn_head.rpn_feature.0.fbnetv2_0_2.pwl.bn, type=Identity:
@@ -7648,7 +7647,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.13029468059539795, 65)
+    input = ops.quantized.add(argument_1, argument_2, 0.13211663067340851, 90)
     _0 = (activation_post_process).forward()
     return input
 
@@ -7774,7 +7773,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_224.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    Xq = ops.quantized.conv2d(argument_1, _packed_params, 0.1136840432882309, 118)
+    Xq = ops.quantized.conv2d(argument_1, _packed_params, 0.11338348686695099, 127)
     return Xq
 
 --------------------------------------------------------------------------------
@@ -7864,7 +7863,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_225.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    Xq = ops.quantized.conv2d(argument_1, _packed_params, 0.024111820384860039, 94)
+    Xq = ops.quantized.conv2d(argument_1, _packed_params, 0.026389690116047859, 99)
     return Xq
 
 --------------------------------------------------------------------------------
@@ -7901,7 +7900,7 @@ class Quantize(Module):
   _is_full_backward_hook : Optional[bool]
   def forward(self: __torch__.torch.nn.quantized.modules.___torch_mangle_226.Quantize,
     argument_1: Tensor) -> Tensor:
-    input = torch.quantize_per_tensor(argument_1, 0.089796319603919983, 70, 13)
+    input = torch.quantize_per_tensor(argument_1, 0.056048460304737091, 92, 13)
     return input
 
 --------------------------------------------------------------------------------
@@ -8004,15 +8003,11 @@ class StandardROIHeads(Module):
   box_pooler : __torch__.detectron2.modeling.poolers.ROIPooler
   box_head : __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_289.QuantWrapSubClass
   box_predictor : __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_299.QuantWrapSubClass
-  keypoint_pooler : __torch__.detectron2.modeling.poolers.___torch_mangle_302.ROIPooler
-  keypoint_head : __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_377.QuantWrapSubClass
   def forward(self: __torch__.detectron2.modeling.roi_heads.roi_heads.StandardROIHeads,
     argument_1: Tensor,
     argument_2: Tensor,
-    image_size: Tensor) -> Tuple[Tensor, Tensor, Tensor, Tensor, Tensor]:
+    image_size: Tensor) -> Tuple[Tensor, Tensor, Tensor]:
     _0 = __torch__.torchvision.ops.boxes._batched_nms_coordinate_trick
-    keypoint_head = self.keypoint_head
-    keypoint_pooler = self.keypoint_pooler
     box_predictor = self.box_predictor
     box_head = self.box_head
     box_pooler = self.box_pooler
@@ -8080,7 +8075,7 @@ class StandardROIHeads(Module):
     _40 = torch.slice(scores, 0, 0, 9223372036854775807)
     scores0 = torch.slice(_40, 1, 0, -1)
     _41 = ops.prim.NumToTensor(torch.size(boxes0, 1))
-    num_bbox_reg_classes = torch.div(_41, CONSTANTS.c3, rounding_mode="trunc")
+    num_bbox_reg_classes = torch.floor_divide(_41, CONSTANTS.c3)
     _42 = int(num_bbox_reg_classes)
     tensor = torch.reshape(boxes0, [-1, 4])
     tensor0 = torch.to(tensor, 6)
@@ -8101,32 +8096,26 @@ class StandardROIHeads(Module):
     boxes1 = torch.view(_51, [-1, _42, 4])
     filter_mask = torch.gt(scores0, 0.050000000000000003)
     filter_inds = torch.nonzero(filter_mask)
-    _52 = torch.slice(filter_inds, 0, 0, 9223372036854775807)
-    _53 = torch.select(_52, 1, 0)
-    _54 = torch.select(boxes1, 1, 0)
-    _55 = annotate(List[Optional[Tensor]], [_53])
-    boxes2 = torch.index(_54, _55)
-    _56 = annotate(List[Optional[Tensor]], [filter_mask])
-    scores1 = torch.index(scores0, _56)
-    _57 = torch.slice(filter_inds, 0, 0, 9223372036854775807)
-    _58 = torch.select(_57, 1, 1)
+    _52 = annotate(List[Optional[Tensor]], [filter_mask])
+    boxes2 = torch.index(boxes1, _52)
+    _53 = annotate(List[Optional[Tensor]], [filter_mask])
+    scores1 = torch.index(scores0, _53)
+    _54 = torch.slice(filter_inds, 0, 0, 9223372036854775807)
+    _55 = torch.select(_54, 1, 1)
     boxes3 = torch.to(boxes2, 6)
-    keep = _0(boxes3, scores1, _58, 0.5, )
+    keep = _0(boxes3, scores1, _55, 0.5, )
     keep0 = torch.slice(keep, 0, 0, 100)
+    _56 = annotate(List[Optional[Tensor]], [keep0])
+    tensor1 = torch.index(boxes3, _56)
+    _57 = annotate(List[Optional[Tensor]], [keep0])
+    _58 = torch.index(scores1, _57)
     _59 = annotate(List[Optional[Tensor]], [keep0])
-    tensor1 = torch.index(boxes3, _59)
-    _60 = annotate(List[Optional[Tensor]], [keep0])
-    _61 = torch.index(scores1, _60)
-    _62 = annotate(List[Optional[Tensor]], [keep0])
-    filter_inds0 = torch.index(filter_inds, _62)
+    filter_inds0 = torch.index(filter_inds, _59)
     tensor2 = torch.to(tensor1, 6)
     tensor3 = torch.to(torch.reshape(tensor2, [-1, 4]), 6)
-    _63 = torch.slice(filter_inds0, 0, 0, 9223372036854775807)
-    _64 = torch.select(_63, 1, 1)
-    _65 = (keypoint_pooler).forward(argument_1, tensor3, )
-    _66 = (keypoint_head).forward(_65, tensor3, )
-    _67, _68, = _66
-    return (tensor3, _64, _67, _68, _61)
+    _60 = torch.slice(filter_inds0, 0, 0, 9223372036854775807)
+    _61 = (tensor3, torch.select(_60, 1, 1), _58)
+    return _61
 
 --------------------------------------------------------------------------------
 Code for .model.model.roi_heads.box_pooler, type=ROIPooler:
@@ -8350,7 +8339,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_235.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.01592710055410862, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.021674800664186478, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -8473,7 +8462,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_239.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0048691257834434509, 71)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.010925987735390663, 67)
     return input
 
 --------------------------------------------------------------------------------
@@ -8580,7 +8569,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_241.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.02964261919260025, 62)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.061936497688293457, 74)
     return input
 
 --------------------------------------------------------------------------------
@@ -8721,7 +8710,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_245.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.018882663920521736, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.022799083963036537, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -8844,7 +8833,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_249.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0029587519820779562, 52)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0027748993597924709, 66)
     return input
 
 --------------------------------------------------------------------------------
@@ -8951,8 +8940,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_251.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.043222911655902863, 61)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.048601623624563217, 61)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.roi_heads.box_head.roi_box_conv.0.fbnetv2_0_1.pwl.bn, type=Identity:
@@ -8977,7 +8966,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.047752153128385544, 58)
+    input = ops.quantized.add(argument_1, argument_2, 0.0594521164894104, 69)
     _0 = (activation_post_process).forward()
     return input
 
@@ -9128,7 +9117,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_258.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.013004320673644543, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.0076013030484318733, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -9251,7 +9240,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_262.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0016746800392866135, 65)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0013381578028202057, 66)
     return input
 
 --------------------------------------------------------------------------------
@@ -9358,8 +9347,8 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_264.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.053468119353055954, 55)
-    return x
+    _18 = ops.quantized.conv2d(argument_1, _packed_params, 0.033281244337558746, 69)
+    return _18
 
 --------------------------------------------------------------------------------
 Code for .model.model.roi_heads.box_head.roi_box_conv.0.fbnetv2_0_2.pwl.bn, type=Identity:
@@ -9384,7 +9373,7 @@ class TorchAdd(Module):
     argument_2: Tensor) -> Tensor:
     add_func = self.add_func
     activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 0.069552652537822723, 63)
+    input = ops.quantized.add(argument_1, argument_2, 0.063229329884052277, 67)
     _0 = (activation_post_process).forward()
     return input
 
@@ -9532,7 +9521,7 @@ class ConvReLU2d(Module):
   def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_271.ConvReLU2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.022410595789551735, 0)
+    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 0.0098056122660636902, 0)
     return input
 
 --------------------------------------------------------------------------------
@@ -9655,7 +9644,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_275.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 0.0022731027565896511, 50)
+    input = ops.quantized.conv2d(argument_1, _packed_params, 0.002167640021070838, 68)
     return input
 
 --------------------------------------------------------------------------------
@@ -9762,7 +9751,7 @@ class Conv2d(Module):
   def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_277.Conv2d,
     argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 0.090585090219974518, 72)
+    x = ops.quantized.conv2d(argument_1, _packed_params, 0.104253850877285, 62)
     return x
 
 --------------------------------------------------------------------------------
@@ -9821,7 +9810,7 @@ class Quantize(Module):
   _is_full_backward_hook : Optional[bool]
   def forward(self: __torch__.torch.nn.quantized.modules.___torch_mangle_283.Quantize,
     argument_1: Tensor) -> Tensor:
-    input = torch.quantize_per_tensor(argument_1, 0.07695508748292923, 65, 13)
+    input = torch.quantize_per_tensor(argument_1, 0.036483913660049438, 82, 13)
     return input
 
 --------------------------------------------------------------------------------
@@ -9875,10 +9864,10 @@ class QuantWrapSubClass(Module):
     bbox_pred = self.bbox_pred
     cls_score = self.cls_score
     quant_stubs = self.quant_stubs
-    x = torch.flatten((quant_stubs).forward(argument_1, ), 1)
-    _0 = (dequant_stubs).forward((cls_score).forward(x, ), (bbox_pred).forward(x, ), )
-    _1, _2, = _0
-    return (_1, _2)
+    _0 = torch.flatten((quant_stubs).forward(argument_1, ), 1)
+    _1 = (dequant_stubs).forward((cls_score).forward(_0, ), (bbox_pred).forward(_0, ), )
+    _2, _3, = _1
+    return (_2, _3)
 
 --------------------------------------------------------------------------------
 Code for .model.model.roi_heads.box_predictor.cls_score, type=Linear:
@@ -9889,10 +9878,10 @@ class Linear(Module):
   _is_full_backward_hook : Optional[bool]
   _packed_params : __torch__.torch.nn.quantized.modules.linear.LinearPackedParams
   def forward(self: __torch__.torch.nn.quantized.modules.linear.Linear,
-    x: Tensor) -> Tensor:
+    argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
     _packed_params0 = _packed_params._packed_params
-    Xq = ops.quantized.linear(x, _packed_params0, 0.091204158961772919, 64)
+    Xq = ops.quantized.linear(argument_1, _packed_params0, 0.14934095740318298, 28)
     return Xq
 
 --------------------------------------------------------------------------------
@@ -9904,51 +9893,40 @@ class LinearPackedParams(Module):
   _is_full_backward_hook : Optional[bool]
   dtype : int
   _packed_params : __torch__.torch.classes.quantized.LinearPackedParamsBase
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.linear.LinearPackedParams) -> Tuple[Tensor, Optional[Tensor], bool, int]:
-    qweight, bias, = (self)._weight_bias()
-    training = self.training
-    dtype = self.dtype
-    return (qweight, bias, training, dtype)
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.linear.LinearPackedParams,
-    state: Tuple[Tensor, Optional[Tensor], bool, int]) -> NoneType:
-    self.dtype = (state)[3]
-    _0 = (self).set_weight_bias((state)[0], (state)[1], )
-    self.training = (state)[2]
-    return None
   def _weight_bias(self: __torch__.torch.nn.quantized.modules.linear.LinearPackedParams) -> Tuple[Tensor, Optional[Tensor]]:
-    _1 = "Unsupported dtype on dynamic quantized linear!"
-    _2 = uninitialized(Tuple[Tensor, Optional[Tensor]])
+    _0 = "Unsupported dtype on dynamic quantized linear!"
+    _1 = uninitialized(Tuple[Tensor, Optional[Tensor]])
     dtype = self.dtype
     if torch.eq(dtype, 12):
       _packed_params = self._packed_params
-      _4, _5 = ops.quantized.linear_unpack(_packed_params)
-      _3 = (_4, _5)
+      _3, _4 = ops.quantized.linear_unpack(_packed_params)
+      _2 = (_3, _4)
     else:
       dtype0 = self.dtype
       if torch.eq(dtype0, 5):
         _packed_params0 = self._packed_params
-        _7, _8 = ops.quantized.linear_unpack_fp16(_packed_params0)
-        _6 = (_7, _8)
+        _6, _7 = ops.quantized.linear_unpack_fp16(_packed_params0)
+        _5 = (_6, _7)
       else:
-        ops.prim.RaiseException(_1)
-        _6 = _2
-      _3 = _6
-    return _3
+        ops.prim.RaiseException(_0, "builtins.RuntimeError")
+        _5 = _1
+      _2 = _5
+    return _2
   def set_weight_bias(self: __torch__.torch.nn.quantized.modules.linear.LinearPackedParams,
     weight: Tensor,
     bias: Optional[Tensor]) -> NoneType:
-    _9 = "Unsupported dtype on dynamic quantized linear!"
+    _8 = "Unsupported dtype on dynamic quantized linear!"
     dtype = self.dtype
     if torch.eq(dtype, 12):
-      _10 = ops.quantized.linear_prepack(weight, bias)
-      self._packed_params = _10
+      _9 = ops.quantized.linear_prepack(weight, bias)
+      self._packed_params = _9
     else:
       dtype1 = self.dtype
       if torch.eq(dtype1, 5):
-        _11 = ops.quantized.linear_prepack_fp16(weight, bias)
-        self._packed_params = _11
+        _10 = ops.quantized.linear_prepack_fp16(weight, bias)
+        self._packed_params = _10
       else:
-        ops.prim.RaiseException(_9)
+        ops.prim.RaiseException(_8, "builtins.RuntimeError")
     return None
 
 --------------------------------------------------------------------------------
@@ -9960,10 +9938,10 @@ class Linear(Module):
   _is_full_backward_hook : Optional[bool]
   _packed_params : __torch__.torch.nn.quantized.modules.linear.___torch_mangle_290.LinearPackedParams
   def forward(self: __torch__.torch.nn.quantized.modules.linear.___torch_mangle_291.Linear,
-    x: Tensor) -> Tensor:
+    argument_1: Tensor) -> Tensor:
     _packed_params = self._packed_params
     _packed_params0 = _packed_params._packed_params
-    Xq = ops.quantized.linear(x, _packed_params0, 0.005936991423368454, 55)
+    Xq = ops.quantized.linear(argument_1, _packed_params0, 0.017371678724884987, 63)
     return Xq
 
 --------------------------------------------------------------------------------
@@ -9975,51 +9953,40 @@ class LinearPackedParams(Module):
   _is_full_backward_hook : Optional[bool]
   dtype : int
   _packed_params : __torch__.torch.classes.quantized.LinearPackedParamsBase
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.linear.___torch_mangle_290.LinearPackedParams) -> Tuple[Tensor, Optional[Tensor], bool, int]:
-    qweight, bias, = (self)._weight_bias()
-    training = self.training
-    dtype = self.dtype
-    return (qweight, bias, training, dtype)
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.linear.___torch_mangle_290.LinearPackedParams,
-    state: Tuple[Tensor, Optional[Tensor], bool, int]) -> NoneType:
-    self.dtype = (state)[3]
-    _0 = (self).set_weight_bias((state)[0], (state)[1], )
-    self.training = (state)[2]
-    return None
   def _weight_bias(self: __torch__.torch.nn.quantized.modules.linear.___torch_mangle_290.LinearPackedParams) -> Tuple[Tensor, Optional[Tensor]]:
-    _1 = "Unsupported dtype on dynamic quantized linear!"
-    _2 = uninitialized(Tuple[Tensor, Optional[Tensor]])
+    _0 = "Unsupported dtype on dynamic quantized linear!"
+    _1 = uninitialized(Tuple[Tensor, Optional[Tensor]])
     dtype = self.dtype
     if torch.eq(dtype, 12):
       _packed_params = self._packed_params
-      _4, _5 = ops.quantized.linear_unpack(_packed_params)
-      _3 = (_4, _5)
+      _3, _4 = ops.quantized.linear_unpack(_packed_params)
+      _2 = (_3, _4)
     else:
       dtype0 = self.dtype
       if torch.eq(dtype0, 5):
         _packed_params0 = self._packed_params
-        _7, _8 = ops.quantized.linear_unpack_fp16(_packed_params0)
-        _6 = (_7, _8)
+        _6, _7 = ops.quantized.linear_unpack_fp16(_packed_params0)
+        _5 = (_6, _7)
       else:
-        ops.prim.RaiseException(_1)
-        _6 = _2
-      _3 = _6
-    return _3
+        ops.prim.RaiseException(_0, "builtins.RuntimeError")
+        _5 = _1
+      _2 = _5
+    return _2
   def set_weight_bias(self: __torch__.torch.nn.quantized.modules.linear.___torch_mangle_290.LinearPackedParams,
     weight: Tensor,
     bias: Optional[Tensor]) -> NoneType:
-    _9 = "Unsupported dtype on dynamic quantized linear!"
+    _8 = "Unsupported dtype on dynamic quantized linear!"
     dtype = self.dtype
     if torch.eq(dtype, 12):
-      _10 = ops.quantized.linear_prepack(weight, bias)
-      self._packed_params = _10
+      _9 = ops.quantized.linear_prepack(weight, bias)
+      self._packed_params = _9
     else:
       dtype1 = self.dtype
       if torch.eq(dtype1, 5):
-        _11 = ops.quantized.linear_prepack_fp16(weight, bias)
-        self._packed_params = _11
+        _10 = ops.quantized.linear_prepack_fp16(weight, bias)
+        self._packed_params = _10
       else:
-        ops.prim.RaiseException(_9)
+        ops.prim.RaiseException(_8, "builtins.RuntimeError")
     return None
 
 --------------------------------------------------------------------------------
@@ -10056,7 +10023,7 @@ class Quantize(Module):
   _is_full_backward_hook : Optional[bool]
   def forward(self: __torch__.torch.nn.quantized.modules.___torch_mangle_292.Quantize,
     argument_1: Tensor) -> Tensor:
-    x = torch.quantize_per_tensor(argument_1, 0.054688714444637299, 70, 13)
+    x = torch.quantize_per_tensor(argument_1, 0.066273242235183716, 62, 13)
     return x
 
 --------------------------------------------------------------------------------
@@ -10106,2505 +10073,6 @@ class DeQuantize(Module):
   training : bool
   _is_full_backward_hook : Optional[bool]
   def forward(self: __torch__.torch.nn.quantized.modules.___torch_mangle_296.DeQuantize,
-    argument_1: Tensor) -> Tensor:
-    return torch.dequantize(argument_1)
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_pooler, type=ROIPooler:
-class ROIPooler(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  level_poolers : __torch__.torch.nn.modules.container.___torch_mangle_301.ModuleList
-  def forward(self: __torch__.detectron2.modeling.poolers.___torch_mangle_302.ROIPooler,
-    argument_1: Tensor,
-    tensor: Tensor) -> Tensor:
-    _0 = __torch__.detectron2.modeling.poolers._convert_boxes_to_pooler_format
-    level_poolers = self.level_poolers
-    _00 = getattr(level_poolers, "0")
-    _1 = torch.cat([tensor])
-    _2 = ops.prim.NumToTensor(torch.size(tensor, 0))
-    rois = _0(_1, torch.stack([_2]), )
-    return (_00).forward(rois, argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_pooler.level_poolers, type=ModuleList:
-class ModuleList(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  __annotations__["0"] = __torch__.detectron2.layers.roi_align.___torch_mangle_300.ROIAlign
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_pooler.level_poolers.0, type=ROIAlign:
-class ROIAlign(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.detectron2.layers.roi_align.___torch_mangle_300.ROIAlign,
-    rois: Tensor,
-    argument_2: Tensor) -> Tensor:
-    boxes = torch.to(rois, 6)
-    X = ops.torchvision.roi_align(argument_2, boxes, 0.0625, 6, 6, 0, True)
-    return X
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head, type=QuantWrapSubClass:
-class QuantWrapSubClass(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  feature_extractor : __torch__.d2go.modeling.backbone.fbnet_v2.___torch_mangle_361.FBNetModule
-  predictor : __torch__.d2go.modeling.backbone.modules.KeypointRCNNIRFPredictorNoUpscale
-  quant_stubs : __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_373.QuantStubNested
-  dequant_stubs : __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_376.QuantStubNested
-  def forward(self: __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_377.QuantWrapSubClass,
-    argument_1: Tensor,
-    tensor: Tensor) -> Tuple[Tensor, Tensor]:
-    _0 = __torch__.detectron2.structures.keypoints.heatmaps_to_keypoints
-    dequant_stubs = self.dequant_stubs
-    predictor = self.predictor
-    feature_extractor = self.feature_extractor
-    quant_stubs = self.quant_stubs
-    _1 = (feature_extractor).forward((quant_stubs).forward(argument_1, ), )
-    _2 = (dequant_stubs).forward((predictor).forward(_1, ), )
-    _3 = torch.detach(_2)
-    keypoint_results = _0(_3, torch.detach(tensor), )
-    _4 = ops.prim.NumToTensor(torch.size(tensor, 0))
-    _5 = int(_4)
-    _6 = int(_4)
-    _7 = torch.slice(keypoint_results, 0, 0, 9223372036854775807)
-    _8 = torch.slice(_7, 1, 0, 9223372036854775807)
-    _9 = torch.to(CONSTANTS.c0, torch.device("cpu"), 4)
-    _10 = annotate(List[Optional[Tensor]], [None, None, _9])
-    _11 = torch.split_with_sizes(torch.index(_8, _10), [_6])
-    _12, = _11
-    _13, = torch.split_with_sizes(_3, [_5])
-    return (_13, _12)
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor, type=FBNetModule:
-class FBNetModule(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  __annotations__["0"] = __torch__.torch.nn.modules.container.___torch_mangle_360.Sequential
-  def forward(self: __torch__.d2go.modeling.backbone.fbnet_v2.___torch_mangle_361.FBNetModule,
-    argument_1: Tensor) -> Tensor:
-    _0 = getattr(self, "0")
-    return (_0).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0, type=Sequential:
-class Sequential(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  fbnetv2_0_0 : __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_312.IRFBlock
-  fbnetv2_0_1 : __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_325.IRFBlock
-  fbnetv2_0_2 : __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_338.IRFBlock
-  fbnetv2_0_3 : __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_348.IRFBlock
-  fbnetv2_0_4 : __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_359.IRFBlock
-  def forward(self: __torch__.torch.nn.modules.container.___torch_mangle_360.Sequential,
-    argument_1: Tensor) -> Tensor:
-    fbnetv2_0_4 = self.fbnetv2_0_4
-    fbnetv2_0_3 = self.fbnetv2_0_3
-    fbnetv2_0_2 = self.fbnetv2_0_2
-    fbnetv2_0_1 = self.fbnetv2_0_1
-    fbnetv2_0_0 = self.fbnetv2_0_0
-    _0 = (fbnetv2_0_1).forward((fbnetv2_0_0).forward(argument_1, ), )
-    _1 = (fbnetv2_0_3).forward((fbnetv2_0_2).forward(_0, ), )
-    return (fbnetv2_0_4).forward(_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0, type=IRFBlock:
-class IRFBlock(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  pw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_306.ConvBNRelu
-  dw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_308.ConvBNRelu
-  pwl : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_311.ConvBNRelu
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_312.IRFBlock,
-    argument_1: Tensor) -> Tensor:
-    pwl = self.pwl
-    dw = self.dw
-    pw = self.pw
-    _0 = (dw).forward((pw).forward(argument_1, ), )
-    return (pwl).forward(_0, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_303.ConvReLU2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_304.Identity
-  relu : __torch__.torch.nn.modules.linear.___torch_mangle_305.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_306.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    relu = self.relu
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    _2 = (relu).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pw.conv, type=ConvReLU2d:
-class ConvReLU2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_303.ConvReLU2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_303.ConvReLU2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_303.ConvReLU2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_303.ConvReLU2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_303.ConvReLU2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pw.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_304.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pw.relu, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_305.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.dw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_307.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_308.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.dw.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_307.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_307.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_307.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_307.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_307.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pwl, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_309.Conv2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_310.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_311.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pwl.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_309.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_309.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_309.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_309.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_309.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_0.pwl.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_310.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1, type=IRFBlock:
-class IRFBlock(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  pw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_316.ConvBNRelu
-  dw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_318.ConvBNRelu
-  pwl : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_321.ConvBNRelu
-  res_conn : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_324.TorchAdd
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_325.IRFBlock,
-    argument_1: Tensor) -> Tensor:
-    res_conn = self.res_conn
-    pwl = self.pwl
-    dw = self.dw
-    pw = self.pw
-    _0 = (dw).forward((pw).forward(argument_1, ), )
-    _1 = (res_conn).forward((pwl).forward(_0, ), argument_1, )
-    return _1
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_313.ConvReLU2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_314.Identity
-  relu : __torch__.torch.nn.modules.linear.___torch_mangle_315.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_316.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    relu = self.relu
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    _2 = (relu).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pw.conv, type=ConvReLU2d:
-class ConvReLU2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_313.ConvReLU2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_313.ConvReLU2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_313.ConvReLU2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_313.ConvReLU2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_313.ConvReLU2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pw.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_314.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pw.relu, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_315.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.dw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_317.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_318.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.dw.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_317.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_317.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_317.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_317.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_317.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pwl, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_319.Conv2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_320.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_321.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pwl.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_319.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_319.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_319.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_319.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_319.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return x
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.pwl.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_320.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.res_conn, type=TorchAdd:
-class TorchAdd(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  add_func : __torch__.torch.nn.quantized.modules.functional_modules.___torch_mangle_323.QFunctional
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_324.TorchAdd,
-    argument_1: Tensor,
-    argument_2: Tensor) -> Tensor:
-    add_func = self.add_func
-    activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 1., 0)
-    _0 = (activation_post_process).forward()
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.res_conn.add_func, type=QFunctional:
-class QFunctional(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  activation_post_process : __torch__.torch.nn.modules.linear.___torch_mangle_322.Identity
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_1.res_conn.add_func.activation_post_process, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_322.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2, type=IRFBlock:
-class IRFBlock(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  pw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_329.ConvBNRelu
-  dw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_331.ConvBNRelu
-  pwl : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_334.ConvBNRelu
-  res_conn : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_337.TorchAdd
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_338.IRFBlock,
-    argument_1: Tensor) -> Tensor:
-    res_conn = self.res_conn
-    pwl = self.pwl
-    dw = self.dw
-    pw = self.pw
-    _0 = (dw).forward((pw).forward(argument_1, ), )
-    _1 = (res_conn).forward((pwl).forward(_0, ), argument_1, )
-    return _1
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_326.ConvReLU2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_327.Identity
-  relu : __torch__.torch.nn.modules.linear.___torch_mangle_328.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_329.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    relu = self.relu
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    _2 = (relu).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pw.conv, type=ConvReLU2d:
-class ConvReLU2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_326.ConvReLU2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_326.ConvReLU2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_326.ConvReLU2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_326.ConvReLU2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_326.ConvReLU2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pw.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_327.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pw.relu, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_328.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.dw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_330.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_331.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.dw.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_330.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_330.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_330.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_330.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_330.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pwl, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_332.Conv2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_333.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_334.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pwl.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_332.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_332.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_332.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_332.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_332.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    x = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return x
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.pwl.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_333.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.res_conn, type=TorchAdd:
-class TorchAdd(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  add_func : __torch__.torch.nn.quantized.modules.functional_modules.___torch_mangle_336.QFunctional
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_337.TorchAdd,
-    argument_1: Tensor,
-    argument_2: Tensor) -> Tensor:
-    add_func = self.add_func
-    activation_post_process = add_func.activation_post_process
-    input = ops.quantized.add(argument_1, argument_2, 1., 0)
-    _0 = (activation_post_process).forward()
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.res_conn.add_func, type=QFunctional:
-class QFunctional(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  activation_post_process : __torch__.torch.nn.modules.linear.___torch_mangle_335.Identity
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_2.res_conn.add_func.activation_post_process, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_335.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3, type=IRFBlock:
-class IRFBlock(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  pw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_342.ConvBNRelu
-  upsample : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.Upsample
-  dw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_344.ConvBNRelu
-  pwl : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_347.ConvBNRelu
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_348.IRFBlock,
-    argument_1: Tensor) -> Tensor:
-    pwl = self.pwl
-    dw = self.dw
-    upsample = self.upsample
-    pw = self.pw
-    _0 = (upsample).forward((pw).forward(argument_1, ), )
-    return (pwl).forward((dw).forward(_0, ), )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_339.ConvReLU2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_340.Identity
-  relu : __torch__.torch.nn.modules.linear.___torch_mangle_341.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_342.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    relu = self.relu
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    _2 = (relu).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pw.conv, type=ConvReLU2d:
-class ConvReLU2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_339.ConvReLU2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_339.ConvReLU2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_339.ConvReLU2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_339.ConvReLU2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_339.ConvReLU2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pw.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_340.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pw.relu, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_341.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.upsample, type=Upsample:
-class Upsample(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.Upsample,
-    argument_1: Tensor) -> Tensor:
-    input = torch.upsample_nearest2d(argument_1, None, [2., 2.])
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.dw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_343.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_344.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.dw.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_343.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_343.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_343.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_343.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_343.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pwl, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_345.Conv2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_346.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_347.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pwl.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_345.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_345.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_345.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_345.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_345.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_3.pwl.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_346.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4, type=IRFBlock:
-class IRFBlock(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  pw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_352.ConvBNRelu
-  upsample : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_353.Upsample
-  dw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_355.ConvBNRelu
-  pwl : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_358.ConvBNRelu
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_359.IRFBlock,
-    argument_1: Tensor) -> Tensor:
-    pwl = self.pwl
-    dw = self.dw
-    upsample = self.upsample
-    pw = self.pw
-    _0 = (upsample).forward((pw).forward(argument_1, ), )
-    return (pwl).forward((dw).forward(_0, ), )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_349.ConvReLU2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_350.Identity
-  relu : __torch__.torch.nn.modules.linear.___torch_mangle_351.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_352.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    relu = self.relu
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    _2 = (relu).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pw.conv, type=ConvReLU2d:
-class ConvReLU2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_349.ConvReLU2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_349.ConvReLU2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_349.ConvReLU2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_349.ConvReLU2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_349.ConvReLU2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pw.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_350.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pw.relu, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_351.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.upsample, type=Upsample:
-class Upsample(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_353.Upsample,
-    argument_1: Tensor) -> Tensor:
-    input = torch.upsample_nearest2d(argument_1, None, [2., 2.])
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.dw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_354.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_355.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.dw.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_354.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_354.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_354.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_354.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_354.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pwl, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_356.Conv2d
-  bn : __torch__.torch.nn.modules.linear.___torch_mangle_357.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_358.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    bn = self.bn
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (bn).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pwl.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_356.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_356.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_356.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_356.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_356.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.feature_extractor.0.fbnetv2_0_4.pwl.bn, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_357.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor, type=KeypointRCNNIRFPredictorNoUpscale:
-class KeypointRCNNIRFPredictorNoUpscale(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  kps_score_lowres : __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_370.IRFBlock
-  def forward(self: __torch__.d2go.modeling.backbone.modules.KeypointRCNNIRFPredictorNoUpscale,
-    argument_1: Tensor) -> Tensor:
-    kps_score_lowres = self.kps_score_lowres
-    _0 = (kps_score_lowres).forward(argument_1, )
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres, type=IRFBlock:
-class IRFBlock(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  pw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_364.ConvBNRelu
-  upsample : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_365.Upsample
-  dw : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_367.ConvBNRelu
-  pwl : __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_369.ConvBNRelu
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.irf_block.___torch_mangle_370.IRFBlock,
-    argument_1: Tensor) -> Tensor:
-    pwl = self.pwl
-    dw = self.dw
-    upsample = self.upsample
-    pw = self.pw
-    _0 = (upsample).forward((pw).forward(argument_1, ), )
-    return (pwl).forward((dw).forward(_0, ), )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.pw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_362.ConvReLU2d
-  relu : __torch__.torch.nn.modules.linear.___torch_mangle_363.Identity
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_364.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    relu = self.relu
-    conv = self.conv
-    _0 = (conv).forward(argument_1, )
-    _1 = (relu).forward()
-    return _0
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.pw.conv, type=ConvReLU2d:
-class ConvReLU2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_362.ConvReLU2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_362.ConvReLU2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_362.ConvReLU2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_362.ConvReLU2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.intrinsic.quantized.modules.conv_relu.___torch_mangle_362.ConvReLU2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d_relu(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.pw.relu, type=Identity:
-class Identity(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.modules.linear.___torch_mangle_363.Identity) -> NoneType:
-    return None
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.upsample, type=Upsample:
-class Upsample(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_365.Upsample,
-    argument_1: Tensor) -> Tensor:
-    input = torch.upsample_nearest2d(argument_1, None, [2., 2.])
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.dw, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_366.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_367.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.dw.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_366.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_366.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_366.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_366.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_366.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    input = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.pwl, type=ConvBNRelu:
-class ConvBNRelu(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  conv : __torch__.torch.nn.quantized.modules.conv.___torch_mangle_368.Conv2d
-  def forward(self: __torch__.mobile_cv.arch.fbnet_v2.basic_blocks.___torch_mangle_369.ConvBNRelu,
-    argument_1: Tensor) -> Tensor:
-    conv = self.conv
-    return (conv).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.predictor.kps_score_lowres.pwl.conv, type=Conv2d:
-class Conv2d(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  in_channels : int
-  out_channels : int
-  kernel_size : Tuple[int, int]
-  stride : Tuple[int, int]
-  padding : Tuple[int, int]
-  dilation : Tuple[int, int]
-  transposed : bool
-  output_padding : Tuple[int, int]
-  groups : int
-  padding_mode : str
-  _packed_params : __torch__.torch.classes.quantized.Conv2dPackedParamsBase
-  scale : float
-  zero_point : int
-  def __getstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_368.Conv2d) -> Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]:
-    w, b, = (self)._weight_bias()
-    in_channels = self.in_channels
-    out_channels = self.out_channels
-    kernel_size = self.kernel_size
-    stride = self.stride
-    padding = self.padding
-    dilation = self.dilation
-    transposed = self.transposed
-    output_padding = self.output_padding
-    groups = self.groups
-    padding_mode = self.padding_mode
-    scale = self.scale
-    zero_point = self.zero_point
-    training = self.training
-    _0 = (in_channels, out_channels, kernel_size, stride, padding, dilation, transposed, output_padding, groups, padding_mode, w, b, scale, zero_point, training)
-    return _0
-  def __setstate__(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_368.Conv2d,
-    state: Tuple[int, int, Tuple[int, int], Tuple[int, int], Tuple[int, int], Tuple[int, int], bool, Tuple[int, int], int, str, Tensor, Optional[Tensor], float, int, bool]) -> NoneType:
-    self.in_channels = (state)[0]
-    self.out_channels = (state)[1]
-    self.kernel_size = (state)[2]
-    self.stride = (state)[3]
-    self.padding = (state)[4]
-    self.dilation = (state)[5]
-    self.transposed = (state)[6]
-    self.output_padding = (state)[7]
-    self.groups = (state)[8]
-    self.padding_mode = (state)[9]
-    _1 = (self).set_weight_bias((state)[10], (state)[11], )
-    self.scale = (state)[12]
-    self.zero_point = (state)[13]
-    self.training = (state)[14]
-    return None
-  def _weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_368.Conv2d) -> Tuple[Tensor, Optional[Tensor]]:
-    _packed_params = self._packed_params
-    return (_packed_params).unpack()
-  def set_weight_bias(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_368.Conv2d,
-    w: Tensor,
-    b: Optional[Tensor]) -> NoneType:
-    padding_mode = self.padding_mode
-    if torch.eq(padding_mode, "zeros"):
-      stride = self.stride
-      padding = self.padding
-      dilation = self.dilation
-      groups = self.groups
-      _2, _3, = stride
-      _4 = [_2, _3]
-      _5, _6, = padding
-      _7 = [_5, _6]
-      _8, _9, = dilation
-      _10 = ops.quantized.conv2d_prepack(w, b, _4, _7, [_8, _9], groups)
-      self._packed_params = _10
-    else:
-      stride0 = self.stride
-      _11 = [0, 0]
-      dilation0 = self.dilation
-      groups0 = self.groups
-      _12, _13, = stride0
-      _14 = [_12, _13]
-      _15, _16, = dilation0
-      _17 = ops.quantized.conv2d_prepack(w, b, _14, _11, [_15, _16], groups0)
-      self._packed_params = _17
-    return None
-  def forward(self: __torch__.torch.nn.quantized.modules.conv.___torch_mangle_368.Conv2d,
-    argument_1: Tensor) -> Tensor:
-    _packed_params = self._packed_params
-    Xq = ops.quantized.conv2d(argument_1, _packed_params, 1., 0)
-    return Xq
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.quant_stubs, type=QuantStubNested:
-class QuantStubNested(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  stubs : __torch__.torch.nn.modules.container.___torch_mangle_372.ModuleList
-  def forward(self: __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_373.QuantStubNested,
-    argument_1: Tensor) -> Tensor:
-    stubs = self.stubs
-    _0 = getattr(stubs, "0")
-    return (_0).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.quant_stubs.stubs, type=ModuleList:
-class ModuleList(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  __annotations__["0"] = __torch__.torch.nn.quantized.modules.___torch_mangle_371.Quantize
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.quant_stubs.stubs.0, type=Quantize:
-class Quantize(Module):
-  __parameters__ = []
-  __buffers__ = ["scale", "zero_point", ]
-  scale : Tensor
-  zero_point : Tensor
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.quantized.modules.___torch_mangle_371.Quantize,
-    argument_1: Tensor) -> Tensor:
-    input = torch.quantize_per_tensor(argument_1, 1., 0, 13)
-    return input
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.dequant_stubs, type=QuantStubNested:
-class QuantStubNested(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  stubs : __torch__.torch.nn.modules.container.___torch_mangle_375.ModuleList
-  def forward(self: __torch__.mobile_cv.arch.utils.quantize_utils.___torch_mangle_376.QuantStubNested,
-    argument_1: Tensor) -> Tensor:
-    stubs = self.stubs
-    _0 = getattr(stubs, "0")
-    return (_0).forward(argument_1, )
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.dequant_stubs.stubs, type=ModuleList:
-class ModuleList(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  __annotations__["0"] = __torch__.torch.nn.quantized.modules.___torch_mangle_374.DeQuantize
-
---------------------------------------------------------------------------------
-Code for .model.model.roi_heads.keypoint_head.dequant_stubs.stubs.0, type=DeQuantize:
-class DeQuantize(Module):
-  __parameters__ = []
-  __buffers__ = []
-  training : bool
-  _is_full_backward_hook : Optional[bool]
-  def forward(self: __torch__.torch.nn.quantized.modules.___torch_mangle_374.DeQuantize,
     argument_1: Tensor) -> Tensor:
     return torch.dequantize(argument_1)
 

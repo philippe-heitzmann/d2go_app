@@ -5,9 +5,10 @@ import glob
 import multiprocessing as mp
 import os
 import sys
-sys.path.append(r"C:\Users\phil0\DS\d2go")
-sys.path.append(r"C:\Users\phil0\DS")
-sys.path.append(r'C:\Users\phil0\DS\d2go\d2go\model_zoo')
+sys.path.append(r"C:\Users\Administrator\DS")
+sys.path.append(r"C:\Users\Administrator\DS\d2go_app")
+sys.path.append(r"C:\Users\Administrator\DS\d2go_app\d2go")
+sys.path.append(r'C:\Users\Administrator\DS\d2go_app\d2go\model_zoo')
 import time
 
 import cv2
@@ -36,7 +37,7 @@ def get_parser():
     parser = argparse.ArgumentParser(description="Detectron2 demo for builtin configs")
     parser.add_argument(
         "--config-file",
-        default="keypoint_rcnn_fbnetv3a_dsmask_C4.yaml",
+        default=r"C:\Users\Administrator\DS\d2go_app\configs\faster_rcnn_fbnetv3a_C4.yaml",
         metavar="FILE",
         help="path to config file",
     )
@@ -78,7 +79,7 @@ def main():
     logger = setup_logger()
     logger.info("Arguments: " + str(args))
 
-    cfg = model_zoo.get_config(args.config_file)
+    cfg = model_zoo.get_config(args.config_file) 
     cfg = setup_cfg(cfg, args)
     demo = VisualizationDemo(cfg, args.config_file)
 

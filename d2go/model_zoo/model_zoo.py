@@ -1,7 +1,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 import os
 import sys
-sys.path.append(r'C:\Users\phil0\DS\d2go\configs')
+sys.path.append(r'C:\Users\Administrator\DS\d2go_app')
 from typing import Optional
 
 import pkg_resources
@@ -55,11 +55,11 @@ def get_config_file(config_path):
     # cfg_file = pkg_resources.resource_filename(
     #     r"C:\Users\phil0\DS\d2go\configs", os.path.join("configs", config_path)
     # )
-    cfg_file = "/Users/phil0/DS/d2go/configs" + '/' + config_path
-    print(cfg_file)
-    if not os.path.exists(cfg_file):
-        raise RuntimeError("{} not available in Model Zoo!".format(config_path))
-    return cfg_file
+    config_path = "C:/Users/Administrator/DS/d2go_app/configs" + "/" + config_path
+    print(config_path)
+    # if not os.path.exists(config_path):
+    #     raise RuntimeError("{} not available in Model Zoo!".format(config_path))
+    return config_path
 
 
 def get_config(

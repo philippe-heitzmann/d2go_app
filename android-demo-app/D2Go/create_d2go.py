@@ -7,17 +7,14 @@ import unittest
 from PIL import Image
 
 import sys
-sys.path.append(r"C:\Users\phil0\DS\d2go")
-sys.path.append(r"C:\Users\phil0\DS")
-sys.path.append(r'C:\Users\phil0\DS\d2go\d2go\model_zoo')
+sys.path.append(r'C:\Users\Administrator\DS\d2go_app')
+sys.path.append(r'C:\Users\Administrator\DS\d2go_app\d2go')
 
 import torch
 from d2go.export.api import convert_and_export_predictor
 from d2go.export.d2_meta_arch import patch_d2_meta_arch
 from d2go.runner import create_runner, GeneralizedRCNNRunner
 from d2go.model_zoo import model_zoo
-
-# C:\Users\phil0\DS\d2go\android-demo-app\D2Go
 
 from mobile_cv.common.misc.file_utils import make_temp_directory
 from d2go.utils.testing.data_loader_helper import LocalImageGenerator, _register_toy_dataset
@@ -54,7 +51,7 @@ def create_fake_detection_data_loader(height, width, is_train):
                     )
                     yield test_loader
 
-def test_export_torchvision_format(cfg_name = 'keypoint_rcnn_fbnetv3a_dsmask_C4.yaml'):
+def test_export_torchvision_format(cfg_name = 'faster_rcnn_fbnetv3a_dsmask_C4.yaml'):
     # cfg_name = 'faster_rcnn_fbnetv3a_dsmask_C4.yaml' #
     #keypoint_rcnn_fbnetv3a_dsmask_C4.yaml
     pytorch_model = model_zoo.get(cfg_name, trained=True)

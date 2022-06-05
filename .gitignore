@@ -3,6 +3,9 @@
 *.jpeg
 *.png
 *.csv
+*.pt
+*.pkl
+*.jit
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

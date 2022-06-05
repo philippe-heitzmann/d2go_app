@@ -28,17 +28,9 @@
                     },
                     {
                         "_target_": "detectron2.export.flatten.IdentitySchema"
-                    },
-                    {
-                        "_target_": "detectron2.export.flatten.IdentitySchema"
-                    },
-                    {
-                        "_target_": "detectron2.export.flatten.IdentitySchema"
                     }
                 ],
                 "sizes": [
-                    1,
-                    1,
                     1,
                     1,
                     1
@@ -46,8 +38,6 @@
                 "keys": [
                     "pred_boxes",
                     "pred_classes",
-                    "pred_keypoint_heatmaps",
-                    "pred_keypoints",
                     "scores"
                 ]
             }

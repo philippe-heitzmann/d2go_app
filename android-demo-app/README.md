@@ -20,7 +20,13 @@ The [PyTorch demo app](https://github.com/pytorch/android-demo-app/tree/master/P
 
 ### Object Detection
 
+#Following https://gilberttanner.com/blog/d2go-use-detectron2-on-mobile-devices/
 [Object Detection](https://github.com/pytorch/android-demo-app/tree/master/ObjectDetection) demonstrates how to convert the popular [YOLOv5](https://pytorch.org/hub/ultralytics_yolov5/) model and use it in an Android app that detects objects from pictures in your photos, taken with camera, or with live camera.
+
+```bash
+cd android-demo-app/D2Go
+python create_d2go.py
+```
 
 ### Neural Machine Translation
 
